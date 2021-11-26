@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 
-namespace morse
+namespace smorse
 {
     const std::map<char, std::string> coding = {
         {'a', ".-"},

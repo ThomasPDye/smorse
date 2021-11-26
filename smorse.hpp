@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace morse
+namespace smorse
 {
     std::string smorse(std::string word);
 } // namespace morse
