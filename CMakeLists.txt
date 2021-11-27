@@ -36,6 +36,12 @@ target_link_libraries(answer_bonus_1_b_smorse bonus_smorse)
 add_executable(answer_bonus_1_b_smorse_main answer_bonus_1_b_smorse_main.cpp)
 target_link_libraries(answer_bonus_1_b_smorse_main answer_bonus_1_b_smorse)
 
+add_library(test_bonus_2_a_smorse test_bonus_2_a_smorse.cpp)
+target_link_libraries(test_bonus_2_a_smorse bonus_smorse)
+
+add_executable(test_bonus_2_a_smorse_main test_bonus_2_a_smorse_main.cpp)
+target_link_libraries(test_bonus_2_a_smorse_main test_bonus_2_a_smorse)
+
 function(do_test target arg result)
     add_test(NAME ${target}_${arg}_is_${result} COMMAND ${target}_main ${arg} ${result})
 endfunction(do_test)
@@ -51,3 +57,5 @@ set_tests_properties(test_bonus_1_a PROPERTIES REQUIRED_FILES ${CMAKE_SOURCE_DIR
 
 add_test(NAME answer_bonus_1_b COMMAND answer_bonus_1_b_smorse_main ${CMAKE_SOURCE_DIR}/enable1.txt 13)
 set_tests_properties(answer_bonus_1_b PROPERTIES REQUIRED_FILES ${CMAKE_SOURCE_DIR}/enable1.txt PASS_REGULAR_EXPRESSION "-....--.... 13  babe bans bates bath begs deans death digs dimes duns neeps nips tsadi")
+
+add_test(NAME test_bonus_2_a COMMAND test_bonus_2_a_smorse_main autotomous - 14)
