@@ -60,6 +60,12 @@ target_link_libraries(test_bonus_4_a_smorse bonus_smorse)
 add_executable(test_bonus_4_a_smorse_main test_bonus_4_a_smorse_main.cpp)
 target_link_libraries(test_bonus_4_a_smorse_main test_bonus_4_a_smorse)
 
+add_library(answer_bonus_4_b_smorse answer_bonus_4_b_smorse.cpp)
+target_link_libraries(answer_bonus_4_b_smorse bonus_smorse)
+
+add_executable(answer_bonus_4_b_smorse_main answer_bonus_4_b_smorse_main.cpp)
+target_link_libraries(answer_bonus_4_b_smorse_main answer_bonus_4_b_smorse)
+
 function(do_test target arg result)
     add_test(NAME ${target}_${arg}_is_${result} COMMAND ${target}_main ${arg} ${result})
 endfunction(do_test)
@@ -85,3 +91,6 @@ add_test(NAME answer_bonus_3_a COMMAND answer_bonus_3_a_smorse_main ${CMAKE_SOUR
 set_tests_properties(answer_bonus_3_a PROPERTIES REQUIRED_FILES ${CMAKE_SOURCE_DIR}/enable1.txt PASS_REGULAR_EXPRESSION "counterdemonstrations overcommercialization")
 
 add_test(NAME test_bonus_4_a COMMAND test_bonus_4_a_smorse_main protectorate)
+
+add_test(NAME answer_bonus_4_b COMMAND answer_bonus_4_b_smorse_main ${CMAKE_SOURCE_DIR}/enable1.txt 13)
+set_tests_properties(answer_bonus_4_b PROPERTIES REQUIRED_FILES ${CMAKE_SOURCE_DIR}/enable1.txt PASS_REGULAR_EXPRESSION "..-.-.-..--......--..-.-.-.. 1 intransigence")
