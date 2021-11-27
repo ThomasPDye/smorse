@@ -48,6 +48,12 @@ target_link_libraries(answer_bonus_2_b_smorse bonus_smorse)
 add_executable(answer_bonus_2_b_smorse_main answer_bonus_2_b_smorse_main.cpp)
 target_link_libraries(answer_bonus_2_b_smorse_main answer_bonus_2_b_smorse)
 
+add_library(answer_bonus_3_a_smorse answer_bonus_3_a_smorse.cpp)
+target_link_libraries(answer_bonus_3_a_smorse bonus_smorse)
+
+add_executable(answer_bonus_3_a_smorse_main answer_bonus_3_a_smorse_main.cpp)
+target_link_libraries(answer_bonus_3_a_smorse_main answer_bonus_3_a_smorse)
+
 function(do_test target arg result)
     add_test(NAME ${target}_${arg}_is_${result} COMMAND ${target}_main ${arg} ${result})
 endfunction(do_test)
@@ -68,3 +74,6 @@ add_test(NAME test_bonus_2_a COMMAND test_bonus_2_a_smorse_main autotomous - 14)
 
 add_test(NAME answer_bonus_2_b COMMAND answer_bonus_2_b_smorse_main ${CMAKE_SOURCE_DIR}/enable1.txt - 15)
 set_tests_properties(answer_bonus_2_b PROPERTIES REQUIRED_FILES ${CMAKE_SOURCE_DIR}/enable1.txt PASS_REGULAR_EXPRESSION "-...---------------...- 1  bottommost")
+
+add_test(NAME answer_bonus_3_a COMMAND answer_bonus_3_a_smorse_main ${CMAKE_SOURCE_DIR}/enable1.txt 21)
+set_tests_properties(answer_bonus_3_a PROPERTIES REQUIRED_FILES ${CMAKE_SOURCE_DIR}/enable1.txt PASS_REGULAR_EXPRESSION "counterdemonstrations overcommercialization")
