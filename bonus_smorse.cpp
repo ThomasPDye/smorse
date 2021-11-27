@@ -123,7 +123,7 @@ bool smorse::code_balanced(std::string code)
 bool smorse::palindrome(std::string s)
 {
     bool result = true;
-    for (std::size_t i = 0ul; i < s.size()/2; i++)
+    for (std::size_t i = 0ul; i < s.size() / 2; i++)
     {
         std::size_t j = s.size() - 1 - i;
         if (s[i] != s[j])
@@ -188,6 +188,7 @@ std::vector<std::string> smorse::unused_codes_in_map(std::map<std::string, std::
             if (wci->second.find(*uci.base()) != std::string::npos)
             {
                 uci->erase();
+                break;
             }
         }
     }
