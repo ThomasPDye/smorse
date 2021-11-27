@@ -122,15 +122,17 @@ bool smorse::code_balanced(std::string code)
 
 bool smorse::palindrome(std::string s)
 {
-    for (std::size_t i = 0ul; i < (s.size() >> 1ul); i++)
+    bool result = true;
+    for (std::size_t i = 0ul; i < s.size()/2; i++)
     {
-        std::size_t j = s.size() - i;
+        std::size_t j = s.size() - 1 - i;
         if (s[i] != s[j])
         {
-            return false;
+            result = false;
+            break;
         }
     }
-    return true;
+    return result;
 }
 
 std::map<std::string, std::string> smorse::map_smorse_if_code(std::vector<std::string> words, bool (*keep_func)(std::string))
