@@ -1,3 +1,6 @@
+
+enable_testing()
+
 add_library(test_smorse test_smorse.cpp)
 target_link_libraries(test_smorse smorse)
 
