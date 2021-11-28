@@ -140,9 +140,12 @@ std::vector<std::string> smorse::all_pseudo_codes_of_length(std::size_t l)
 {
     std::vector<std::string> pseudo_codes;
     std::size_t N = (std::size_t)std::pow(2ul, l);
+    std::string p_code;
+    pseudo_codes.reserve(N);
+    p_code.reserve(l);
     for (std::size_t n = 0ul; n < N; n++)
     {
-        std::string p_code = "";
+        p_code = "";
         for (std::size_t i = 0ul; i < l; i++)
         {
             if ((n >> i & 1ul) != 0ul)
