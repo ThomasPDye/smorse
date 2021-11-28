@@ -136,24 +136,6 @@ bool smorse::palindrome(std::string s)
     return result;
 }
 
-std::map<std::string, std::string> smorse::map_smorse_if_code(std::vector<std::string> words, bool (*keep_func)(std::string))
-{
-    std::map<std::string, std::string> cw_map;
-    for (std::vector<std::string>::iterator wi = words.begin(); wi != words.end(); wi++)
-    {
-        std::string w(wi->data());
-        if (cw_map.count(w) == 0ul)
-        {
-            std::string code = smorse::smorse(w);
-            if (keep_func(code))
-            {
-                cw_map[w] = code;
-            }
-        }
-    }
-    return cw_map;
-}
-
 std::vector<std::string> smorse::all_pseudo_codes_of_length(std::size_t l)
 {
     std::vector<std::string> pseudo_codes;

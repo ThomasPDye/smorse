@@ -16,7 +16,6 @@ namespace smorse
     std::pair<unsigned int, unsigned int> count2(std::string s, char c1, char c2);
     bool code_balanced(std::string code);
     bool palindrome(std::string s);
-    std::map<std::string, std::string> map_smorse_if_code(std::vector<std::string> words, bool (*keep_func)(std::string));
     std::vector<std::string> all_pseudo_codes_of_length(std::size_t l);
     std::vector<std::string> all_actual_codes_of_length(std::size_t l);
     std::vector<std::string> unused_codes_in_map(std::map<std::string, std::string> word_code_map, std::vector<std::string> codes);
