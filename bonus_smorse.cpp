@@ -1,5 +1,6 @@
 #include "bonus_smorse.hpp"
 #include "smorse.hpp"
+#include "coding.hpp"
 #include <cmath>
 #include <fstream>
 
@@ -156,21 +157,19 @@ std::map<std::string, std::string> smorse::map_smorse_if_code(std::vector<std::s
 std::vector<std::string> smorse::all_pseudo_codes_of_length(std::size_t l)
 {
     std::vector<std::string> pseudo_codes;
-    std::string p_code;
     std::size_t N = (std::size_t)std::pow(2ul, l);
-    pseudo_codes.reserve(N);
-    p_code.reserve(l);
     for (std::size_t n = 0ul; n < N; n++)
     {
+        std::string p_code = "";
         for (std::size_t i = 0ul; i < l; i++)
         {
-            if ((n >> i & 1ul) == 1ul)
+            if ((n >> i & 1ul) != 0ul)
             {
-                p_code[i] = '-';
+                p_code.insert(i, 1, '-');
             }
             else
             {
-                p_code[i] = '.';
+                p_code.insert(i, 1, '.');
             }
         }
         pseudo_codes.push_back(p_code);
@@ -178,17 +177,61 @@ std::vector<std::string> smorse::all_pseudo_codes_of_length(std::size_t l)
     return pseudo_codes;
 }
 
+std::vector<std::string> smorse::all_actual_codes_of_length(std::size_t l)
+{
+    std::vector<std::string> codes;
+    std::map<char, std::string> coding = smorse::coding;
+    std::map<std::size_t, char> num_char_map;
+    std::size_t minl = 0xffUL, maxl = 0ul;
+    std::size_t n = 0ul;
+    for (std::map<char, std::string>::iterator ci = coding.begin(); ci != coding.end(); ci++)
+    {
+        num_char_map[n] = ci->first;
+        n++;
+        std::size_t length = ci->second.size();
+        if (length < minl)
+            minl = length;
+        if (length > maxl)
+            maxl = length;
+    }
+    std::size_t coding_size = coding.size();
+    std::size_t maxc = (coding_size + minl - 1) / minl, minc = (coding_size - maxl + 1) / maxl > 0l ? (coding_size - maxl + 1) / maxl : 0ul;
+    for (std::size_t ccount = minc; ccount < maxc; ccount++)
+    {
+        std::string word = "";
+        word.resize(ccount, num_char_map[0ul]);
+        for (std::size_t counter = 0ul; counter < ccount * coding_size; counter++)
+        {
+            std::size_t remainder = counter;
+            for (std::size_t c = 0ul; c < ccount; c++)
+            {
+                std::size_t cv = remainder % coding_size;
+                remainder -= cv;
+                remainder = remainder / coding_size;
+                word[c] = num_char_map[cv];
+            }
+            std::string code = smorse::smorse(word);
+            if (code.size() == l)
+                codes.push_back(code);
+        }
+    }
+    return codes;
+}
+
 std::vector<std::string> smorse::unused_codes_in_map(std::map<std::string, std::string> word_code_map, std::vector<std::string> codes)
 {
-    std::vector<std::string> unused(codes), unused_only;
+    std::vector<std::string> unused = codes, unused_only;
+    unused_only.reserve(codes.size());
     for (std::map<std::string, std::string>::iterator wci = word_code_map.begin(); wci != word_code_map.end(); wci++)
     {
         for (std::vector<std::string>::iterator uci = unused.begin(); uci != unused.end(); uci++)
         {
-            if (wci->second.find(*uci.base()) != std::string::npos)
+            if (wci->second.size() >= uci->size())
             {
-                uci->erase();
-                break;
+                if (wci->second.find(*uci.base()) != std::string::npos)
+                {
+                    uci->erase();
+                }
             }
         }
     }
